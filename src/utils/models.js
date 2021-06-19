@@ -14,12 +14,11 @@ const fakeJson = {
 }
 
 
-
 const checkSchema = (reference, { body: json, method }) => {
-   
-    const add = (key, atr) => {
+   // refatorar para class
+    const add = (key, atributo) => {
         if (json[key]) {
-            modelJson[key] = atr
+            modelJson[key] = atributo
         }
     }
 
@@ -27,25 +26,24 @@ const checkSchema = (reference, { body: json, method }) => {
         if (reference[key].required) {
             required = true;
             notMirror = {
-                mensagem: `Por favor verificar o atributo do JSON >  ${key}`
+                mensagem: `Por favor verificar o atributo do JSON em  ${key}`
             }
         }
     }
 
     if (typeof reference !== 'object' || typeof json !== 'object') return undefined;
 
-    const keysRestritas = ["createdAt", "_id", "id", 'host']
-    const referenceKeys = Object.keys(reference).filter(key => !keysRestritas.includes(key));
-    const jsonKeys = Object.keys(json);
+    const exception  = ["createdAt", "_id", "id", 'host']
+    const referenceKeys = Object.keys(reference).filter(key => !exception .includes(key));
     
     let notMirror = undefined;
     let modelJson = {};
     let required;
 
     referenceKeys.forEach((key, index) => {
-        let jsn = json[key];
-        add(key, jsn)
-        if (!jsn) setNotMirror(key)
+        let jsonAtual = json[key];
+        add(key, jsonAtual)
+        if (!jsonAtual) setNotMirror(key)
 
     })
 
@@ -65,6 +63,21 @@ const checkSchema = (reference, { body: json, method }) => {
 
 }
 
+const verifyJson = (...json) => {
+    const newJson = {}
+
+    for (let key of json) {
+        let atributo = json[key];
+        if (atributo == undefined) {
+            return undefined;
+        }
+        else {
+            newJson[key] = atributo
+        }
+    }
+
+    return newJson;
+}
 
 
-module.exports = { checkSchema }
+module.exports = { checkSchema, verifyJson }

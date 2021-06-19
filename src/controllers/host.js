@@ -19,11 +19,10 @@ const getAll = async (req, res) => {
 const verifyHost = async (req, res, next) => {
     const { name, cnpj } = req.modelData;
     
-    const hosts = await Host.find();
+    const existsHost = await Host.findOne({name, cnpj});
 
-    const existsHost = hosts.find(host => host.cnpj==cnpj || host.name.toLowerCase() == name.toLoserCase())
     if (existsHost) {
-        res.status(409).json({ message : "Abrigo já cadastrado"})
+        res.status(409).json({ message : "Abrigo já cadastrado", existsHost})
         return res.end();
     }
 
