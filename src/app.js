@@ -7,7 +7,7 @@ const database = require('./data/database')
 /** ROTAS */
 const host = require('./routes/host')
 const adress = require('./routes/adress')
-const admin = require('./routes/admin')
+
 
 
 
@@ -23,7 +23,7 @@ database.connect();
 
 app.use("/cantinho", host)
 app.use("/localizacao", adress)
-app.use("/admin", admin)
+
 
 module.exports = app;
 

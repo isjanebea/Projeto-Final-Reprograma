@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 
-
-const model = {
-    
+const Schema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
 
     name : {
@@ -18,11 +16,12 @@ const model = {
     description: {
         type: String,
         required: true,
-        default: "",
+        default: true,
     },
 
     foundedAt : {
         type: Date,
+        required: true
     },
 
     activityDomain : {
@@ -38,17 +37,13 @@ const model = {
         }],
     },
 
-    Type : {
+    type : {
         type: String,
         default: "",
     },
     cpnj : {
         type: Number,
-        required: true
-    },
-
-}
-
-const Schema = new mongoose.Schema(model);
+    }
+});
 const Host = mongoose.model('host', Schema)
-module.exports = { Host , model }
+module.exports = Host;

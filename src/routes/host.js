@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const controllers = require('../controllers/host')
+const controller = require('../controllers/host');
+const utils = require('../utils/helper')
 
 router
     .route("/")
-    .get(controllers.getAll)
+    .get(controller.getAll)
+    .post(controller.verifyHostBody, controller.verifyConflit, controller.create, utils.error)
 
 
 
