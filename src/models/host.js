@@ -6,6 +6,7 @@ const Schema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        unique: true
     },
 
     createdAt: {
@@ -43,7 +44,8 @@ const Schema = new mongoose.Schema({
     },
     cnpj: {
         type: Number,
+        unique: true
     }
 });
-const Host = mongoose.model('host', Schema)
-module.exports = Host;
+
+module.exports = mongoose.model('host', Schema)

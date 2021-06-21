@@ -8,7 +8,9 @@ const connect = async () => {
             process.env.DATABASE_URL,
             {
                 useNewUrlParser: true,
-                useUnifiedTopology: true
+                useUnifiedTopology: true,
+                useFindAndModify: false,
+                useCreateIndex: true,
             }
         )
         console.warn('database connected!')

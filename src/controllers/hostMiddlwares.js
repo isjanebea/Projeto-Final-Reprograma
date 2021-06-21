@@ -45,7 +45,7 @@ const Host = require('../models/host')
         try {
 
             let hosts = await Host.find();
-            filterHost = hosts.filter(host => host.cnpj === cnpj || host.name === name)
+            filterHost = hosts.filter(host => (host.cnpj === cnpj || host.name === name) && host._id != req.params.id)
 
 
             if (filterHost.length >= 1 && /put$||post$||update$/.test(req.method)) {

@@ -3,6 +3,11 @@ const mongoose = require('mongoose');
 
 
 const Schema = new mongoose.Schema({
+        createAt: {
+            required: true,
+            type: Date,
+            default: new Date()
+        },
         state: {
             required: true,
             type: String,
