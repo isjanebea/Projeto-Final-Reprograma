@@ -1,14 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/host');
-const utils = require('../utils/helper')
+const middlwares = require('../controllers/hostMiddlwares')
 
-router
-    .route("/")
+/** base URL  /acolhida/ */
+
+router.route("/")
     .get(controller.getAll)
-    .post(controller.verifyHostBody, controller.verifyConflit, controller.create, utils.error)
+    .post(middlwares.verifyHostBody, middlwares.verifyConflit, controller.create)
 
-
-
+router.route("/:id")
+    .get(controller.showById)
+    .put(middlwares.verifyHostBody, middlwares.findById, controller.replaceById)
+    .patch(middlwares.verifyHostBody, middlwares.findById, controller.updateById)
+    .delete(middlwares.findById, controller.deleteById)
 
 module.exports = router;

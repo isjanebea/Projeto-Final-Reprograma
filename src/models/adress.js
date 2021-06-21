@@ -30,7 +30,7 @@ const Schema = new mongoose.Schema({
         },
         cep: {
             type: Number,
-            required: true
+            required: true,
         },
         host: {
             type: mongoose.Schema.Types.ObjectId,
@@ -39,9 +39,7 @@ const Schema = new mongoose.Schema({
         }
     });
 
-const Adress = mongoose.model('address', Schema);
 
-module.exports = {
-    Adress,
-}
+module.exports = mongoose.model('address', Schema);
+
 

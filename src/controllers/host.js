@@ -1,6 +1,7 @@
 const Host = require('../models/host');
 const mongoose = require('mongoose');
 
+
 // nesse caso eu não trabalho com getAll aqui, somente com   patch e replace
 
 
@@ -14,15 +15,26 @@ const getAll = async (req, res) => {
     }
 }
 
-const create = async (req, res, next) => {
+
+const showById = async (req, res) => {
+    try {
+        const host = await Host.findById(req.params.id);
+        return res.status(200).json(host)
+    } catch (error) {
+        return res.status(400).json({ message: error.message })
+    }
+}
+
+
+const create = async (req, res) => {
     const newHost = new Host({
-        _id : mongoose.Schema.Types.ObjectId,
-        ...req.register.host 
+        _id: new mongoose.Types.ObjectId(),
+        ...req.register.host
     })
     try {
 
         const host = await newHost.save();
-        return res.status(201).json({ message: 'Salvo com sucesso!', host })
+        return res.status(201).json({ message: 'Salvo com sucesso!', data : host })
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
@@ -30,43 +42,55 @@ const create = async (req, res, next) => {
 
 
 
+const deleteById = async (req, res) => {
+    const host = req.modelHost;
 
-const verifyConflit = async (req, res, next) => {
-    const { name, cnpj } = req.register.host;
-
-    const existsHost = await Host.findOne({ name, cnpj });
-
-    if (existsHost) {
-        res.status(409).json({ message: "Abrigo já cadastrado" })
-        return res.end();
+    try {
+        let deletedHost = await host.delete();
+        return res.status(200).json({ message: 'deletado com sucesso', data : deletedHost })
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
     }
-    req.model = existsHost;
-    return next();
 }
 
-const verifyHostBody = async (req, res, next) => {
-    const {
-        name, description, foundedAt, activityDomain,
-        ActivitiesAndProjects, type, cnpj
-    } = req.body;
+const replaceById = async (req, res) => {
 
-    req.register = {
-        host: {
-            name, description, foundedAt, activityDomain,
-            ActivitiesAndProjects, type, cnpj
+    try {
+        let replaceHost = await Host.replaceOne({ _id: req.params.id }, req.register.host);
+        if (replaceHost.nModified == 0) {
+            throw Error('Descupa ocorreu um erro.')
         }
+        return res.status(200).json({ message : "Substituido com sucesso!", data : req.modelHost })
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
     }
-
-    if (!req.body) {
-        return res.status(400).json({ message: "Por favor, enviar dados via Body" })
-    }
-
-    return next();
-
 }
+
+
+const updateById = async (req, res) => {
+
+    try {
+        let updateHost = await Host.updateOne({ _id: req.params.id }, req.register.host);
+        console.log(updateHost)
+        if (updateHost.ok == 0) {
+            throw Error('Descupa ocorreu um erro.')
+        }
+        else if (updateHost.nModified==0) {
+            return res.status(304).json({ message : "Nenhuma alteracao!"});
+        }
+        return res.status(200).json({ message : "Substituido com sucesso!", data : req.modelHost })
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
+
+
 module.exports = {
     getAll,
-    verifyConflit,
-    verifyHostBody,
-    create
+    create,
+    deleteById,
+    replaceById,
+    updateById,
+    showById
 }

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
 
-    name : {
+    name: {
         type: String,
         required: true,
     },
@@ -16,32 +16,32 @@ const Schema = new mongoose.Schema({
     description: {
         type: String,
         required: true,
-        default: true,
     },
 
-    foundedAt : {
+    foundedAt: {
         type: Date,
         required: true
     },
 
-    activityDomain : {
+    activityDomain: {
         type: String,
         required: true
     },
 
-    ActivitiesAndProjects : {
-        type: Array, // esperado um array de objetos com as seguites chaves {  title e description }
-        default: [{
-            title : "",
-            description: ""
-        }],
+    activitiesAndProjects: {
+        type: Array,
+        validate: array => {
+            if (Array.isArray(array)) {
+                return array.every(object => typeof object.title == "string" && typeof object.description == "string")
+            }
+        }
     },
 
-    type : {
+    type: {
         type: String,
         default: "",
     },
-    cpnj : {
+    cnpj: {
         type: Number,
     }
 });
