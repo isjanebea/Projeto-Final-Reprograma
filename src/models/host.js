@@ -48,4 +48,8 @@ const Schema = new mongoose.Schema({
     }
 });
 
+// Empatia, Inteligencia Em, Escuta Ativa, AutoConhecimento, Saber Dizer Não, Saber se posicionar
+
+// Saber se posicionar, Saber dizer não
+
 module.exports = mongoose.model('host', Schema)

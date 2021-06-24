@@ -18,12 +18,12 @@ const Adress = require('../models/adress');
 
     async verifyAdressBody(req, res, next) {
         const {
-            district, city, state, road, number, cep, complement, host
+            district, city, state, road, number, cep, complement, host, uf
         } = req.body;
 
         req.register = {
             adress: {
-                district, city, state, road, number, cep, complement, host
+                district, city, state, road, number, cep, complement, host, uf
             }
         }
 

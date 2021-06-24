@@ -15,6 +15,9 @@ const getAll = async (req, res) => {
 const showById = async (req, res) => {
     try {
         const adress = await Adress.findById(req.params.id).populate('host')
+        if (adress == null) {
+            throw Error('Id não encontrado!')
+        }
         return res.status(200).json(adress)
     } catch (error) {
         return res.status(400).json({ message: error.message })

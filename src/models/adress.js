@@ -16,6 +16,12 @@ const Schema = new mongoose.Schema({
             type: String,
             required: true
         },
+        uf : {
+            type: String,
+            required: true,
+            uppercase: true,
+            validade: uf => uf.length==2 
+        },
 
         district: {
             type: String,
