@@ -4,7 +4,7 @@ const cors = require('cors')
 
 /** ROTAS */
 // const host = require('./routes/host')
-// const adress = require('./routes/adress')
+const adress = require('./routes/adress')
 // const colaboradoras = require('./routes/colaboradoras')
 const documentation = require('./routes/doc')
 
@@ -17,7 +17,7 @@ app.use(cors())
 // database.connect();
 
 // app.use("/cantinho", host)
-// app.use("/localizacao", adress)
+app.use("/localizacao", adress)
 // app.use("/admin", colaboradoras)
 app.use("/doc", documentation)
 
