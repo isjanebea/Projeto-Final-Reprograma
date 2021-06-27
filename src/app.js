@@ -27,7 +27,6 @@ database.connect();
 
 
 
-app.use('/', express.static(path.join(__dirname, '../public')))
 app.use("/cantinho", host)
 app.use("/localizacao", adress)
 app.use("/admin", colaboradoras)

@@ -20,10 +20,15 @@ Metodo | Rotas | Recurso
  PUT | '/{id}' | Substitue toda essa entidade.
  PATCH | '/{id}' | Atualiza uma ou mais propriedades de uma entidade.
  DELETE | '/{id}' | Deleta uma entidade de acolhimento.
+
 <br>
 <br>
 
 ## Especificações - MODEL HOST
+ 
+<br>
+<br>
+
 
 KEY | ATRIBUTO | TYPE | REQUIRIDO
 ------- | ---- | ------- | ---------------------------
