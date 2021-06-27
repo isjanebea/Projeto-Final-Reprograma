@@ -1,6 +1,6 @@
 const express =  require('express')
 const cors = require('cors')
-// const database = require('./data/database')
+const database = require('./data/database')
 
 /** ROTAS */
 const host = require('./routes/host')
@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 
-// database.connect();
+database.connect();
 
 app.use("/cantinho", host)
 app.use("/localizacao", adress)

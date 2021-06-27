@@ -13,7 +13,7 @@ const connect = async () => {
                 useCreateIndex: true,
             }
         )
-        console.warn('database connected!')
+        console.log('database connected!')
     } catch (error) {
         console.error(error.message)
     }
