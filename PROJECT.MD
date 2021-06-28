@@ -1,21 +1,21 @@
-# AcolhidaPride
+# Projeto 
 
-### Hosts
-- [x] Implementar os Models
-- [x] Implementar as Rotas
-- [ ] Implementar verificações
-- [ ] Implementar os filtros
+### entidades
 
-### Adress
-- [x] Implementar os Models
-- [X] Implementar as Rotas
-- [ ] Implementar verificações
-- [ ] Implementar os filtros
+1. Host
+2. Adress
+3. Colaboradoras
+
+### entidades futuras
+1. Log
+2. Admistradores
+3. Voluntários   - opcional
+4. Empresas que apoiam - opcional
 
 
 
-### regras
-- [ ] devo conseguir filtrar por estado
-- [ ] devo conseguir filtrar por cidade
-- [ ] devo conseguir filtrar por nome
-- [x] não posso cadastrar o mesmo host CNPJ | NOME
+
+
+
+
+
