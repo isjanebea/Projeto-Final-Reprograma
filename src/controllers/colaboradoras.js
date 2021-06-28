@@ -2,13 +2,16 @@ const jwt = require('jsonwebtoken');
 const Colaboradoras = require('../models/colaboradoras')
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
-
+const all = async (req, res) => {
+    const allColaboradoras = await Colaboradoras.find();
+    return res.status(200).json(allColaboradoras)
+}
 const login = async (req, res) => {
 
     const colaboradora = await Colaboradoras.findOne({ email: req.body.email })
 
-    if (colaboradora== null) {
-        return res.status(400).json({ message : "Usuario ou Senha invalida!"})
+    if (colaboradora == null) {
+        return res.status(400).json({ message: "Usuario ou Senha invalida!" })
     }
     let user;
     if (bcrypt.compareSync(req.body.password, colaboradora.password)) {
@@ -28,12 +31,15 @@ const login = async (req, res) => {
     }
 }
 
+const hashSenha = (passowrd) => bcrypt.hashSync(password, 10);
+
 const register = async (req, res) => {
-    req.register.colaboradora.password = bcrypt.hashSync(req.body.password, 10)
     const colaboradora = new Colaboradoras({
         _id: new mongoose.Types.ObjectId(),
         ...req.register.colaboradora
     })
+
+    colaboradora.password = hashSenha(req.register.colaboradora.password)
 
     try {
         let saveColaboradora = await colaboradora.save();
@@ -43,20 +49,47 @@ const register = async (req, res) => {
     }
 }
 
-const verifyBody = (req, res, next) => {
-    const { name, sobrenome, email, password } = req.body;
-    if (/.+\@.+\..+/.test(email) === false) {
-        return res.status(400).json({ message: "Formato de email invalido" })
+const replaceById = async (req, res) => {
+
+    if (req.register.colaboradora.password) {
+        req.register.colaboradora.password = hashsenha(req.register.colaboradora.password)
     }
 
-    const register = { colaboradora: { name, sobrenome, email, password } }
-    req.register = register;
-    next();
+    try {
+        let replaceColaboradora = await Colaboradoras.replaceOne({ _id: req.params.id }, req.register.colaboradora);
+        if (replaceColaboradora.nModified == 0) {
+            throw Error('Descupa ocorreu um erro.')
+        }
+        return res.status(200).json({ message: "Substituido com sucesso!", data: req.modelColaboradora })
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
+
+const updateById = async (req, res) => {
+    if (req.register.colaboradora.password) {
+        req.register.colaboradora.password = hashsenha(req.register.colaboradora.password)
+    }
+    try {
+        let updateColaboradora = await Colaboradoras.updateOne({ _id: req.params.id }, req.register.colaboradora);
+        if (updateColaboradora.ok == 0) {
+            throw Error('Descupa ocorreu um erro.')
+        }
+        else if (updateColaboradora.nModified == 0) {
+            return res.status(304).json({ message: "Nenhuma alteracao!" });
+        }
+        return res.status(200).json({ message: "Substituido com sucesso!", data: req.modelColaboradora })
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
 }
 
 
 module.exports = {
     login,
     register,
-    verifyBody
+    all,
+    replaceById,
+    updateById
 }

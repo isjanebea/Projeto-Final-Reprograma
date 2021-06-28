@@ -197,7 +197,9 @@ status 200 OK
 Metodo: DELETE 
 <br>
 Protocolo: HTTP
-
+<br>
+Requirido : Header Baerer Token
+<br>
 **Resposta do Servidor**
 <br>
 HTTP: 200 OK
@@ -288,7 +290,7 @@ Body:
     "district": "Bairro",
     "city": "Cidade",
     "state": "Estado",
-    "uf" : "RJ",
+    "uf" : "RJ",  // max 2 values
     "road": "Rua do Arco Iris",
     "number": 24,
     "cep": 22220040,
@@ -387,6 +389,191 @@ Body:
 Metodo: DELETE 
 <br>
 Protocolo: HTTP
+<br>
+Requirido : Header Baerer Token
+<br>
+
+**Resposta do Servidor**
+<br>
+status : 200
+<br>
+```
+{
+    mensagem : String,
+}
+```
+
+
+
+
+
+# Resumo - Colaboradoras
+
+*base-url :::* **'admin/'**
+
+Metodo | Rotas | Recurso
+------------ | -------- | -------------
+ GET  | '/' | Retorna todes colaboradores.
+ GET | '/{id}' | Retorna um colaborador(a,e)
+ POST | '/' | Cria um colaborador(a,e).
+ PUT | '/{id}' | Substitue toda esse Colaborador(a,e).
+ PATCH | '/{id}' | Atualiza uma ou mais propriedades de um Colaborador(a,e).
+ DELETE | '/{id}' | Deleta um  Colaborador(a,e).
+ 
+<br>
+<br>
+<br>
+
+### Especificações - MODEL Colaboradoras
+
+KEY | ATRIBUTO | TYPE | REQUIRIDO
+------- | ---- | ------- | ---------------------------
+_id | "string" | String | SIM > Gerado automaticamente \ não é possivel modificar
+createAt | "string" | String | SIM > Gerado automaticamente \ não é possivel modificar.
+email | "string" | String | SIM 
+password | "string" | String | SIM 
+nome | "string" | String | SIM 
+sobrenome | "string" | String | SIM 
+
+
+<br>
+<br>
+
+## GET
+<br>
+metodo HTTP:
+<br>
+Requirido : Header Baerer Token
+<br>
+
+
+---
+**Resposta do Servidor**
+
+```
+[{ 
+    "email": "colaboradora@gmail.com", 
+    "nome": "Beatriz",
+    "sobrenome": "Ramerindo dos Santos",
+}]
+```
+<br>
+<br>
+
+---
+## POST
+<br>
+<br>
+Protocolo: HTTP
+<br>
+Metodo: POST
+<br>
+Requirido : Header Baerer Token
+<br>
+
+*Obrigatório enviar todas as propriedades requiridas*
+
+<br>
+Body:
+
+```
+{
+    "email": "colaboradora@gmail.com", 
+    "nome": "Beatriz",
+    "sobrenome": "Ramerindo dos Santos",
+    "password": "12345Abc@"
+}
+```
+**Resposta do Servidor**
+
+<br>
+
+201 create
+```
+{
+    mensagem : String,
+    data : { Colaboradora  }
+}
+```
+
+
+
+## PATCH
+<br>
+<br>
+Protocolo: HTTP
+<br>
+Metodo: PATCH
+<br>
+Requirido : Header Baerer Token
+<br>
+
+*Atualiza uma ou mais propriedades*
+
+<br>
+Body:
+
+```
+{
+    "nome": "Jane",
+}
+```
+**Resposta do Servidor**
+
+<br>
+
+200 OK
+```
+{
+    mensagem : String,
+    data : { Colaboradora  }
+}
+```
+
+
+## PUT
+<br>
+<br>
+Protocolo: HTTP
+<br>
+Metodo: PUT
+<br>
+Requirido : Header Baerer Token
+<br>
+
+*Obrigatório enviar todas as propriedades requiridas*
+
+<br>
+Body:
+
+```
+{
+    "email": "colaboradora2@gmail.com", 
+    "nome": "Keyla",
+    "sobrenome": "Não informado",
+    "password": "12345Abc@"
+}
+```
+**Resposta do Servidor**
+
+<br>
+
+200 OK
+```
+{
+    mensagem : String,
+    data : { Colaboradora  }
+}
+```
+
+## DELETE 
+
+Metodo: DELETE 
+<br>
+Protocolo: HTTP
+<br>
+Requirido : Header Baerer Token
+<br>
 
 **Resposta do Servidor**
 <br>
@@ -406,7 +593,7 @@ status : 200
 Metodo | Rotas | Recurso
 ------------ | -------- | -------------
  GET  | '/doc' | Retorna a documentação em formato Markdown
- GET | '/' | Retorna um front demo construido com React  em formato HTML
+ GET  | '/' | Apresentação da API
 
 
 

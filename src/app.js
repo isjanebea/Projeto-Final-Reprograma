@@ -7,7 +7,7 @@ const host = require('./routes/host')
 const adress = require('./routes/adress')
 const colaboradoras = require('./routes/colaboradoras')
 const documentation = require('./routes/doc')
-
+const introduction = require('./routes/introduction')
 const app = express();
 
 
@@ -20,8 +20,8 @@ app.use("/cantinho", host)
 app.use("/localizacao", adress)
 app.use("/admin", colaboradoras)
 app.use("/doc", documentation)
+app.use("/",  introduction)
 
-app.get("/", (req, res) => res.status(200).json({ message : "funcionando"}))
 module.exports = app;
 
 
