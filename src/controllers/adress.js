@@ -10,12 +10,24 @@ const getAll = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
-    const estado =  req.query.estado || ""; 
+         const estado =  req.query.estado || ""; 
         let addressQuery = adress.filter(endereco => endereco.state.toLowerCase()==estado.toLowerCase())
         if (addressQuery.length == 0) 
         return res.status(200).json(adress)
         else
         return res.status(200).json(addressQuery)
+}
+
+const adressRegisted = async (req, res) => {
+    const ordem = req.query.ordem;
+    try {
+        const adress = await Adress.find({}, { state : true})
+        const adressMap = Array.from(new Set(adress.map(data => data.state))).sort((a, b) => ordem =='desc' ? b-a : a-b)
+        res.status(200).json(adressMap)
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message})
+    }
 }
 
 const showById = async (req, res) => {
@@ -91,5 +103,6 @@ module.exports = {
     deleteById,
     replaceById,
     updateById,
-    showById
+    showById,
+    adressRegisted
 }
