@@ -18,6 +18,7 @@ const login = async (req, res) => {
         user = {
             nome: colaboradora.nome,
             email: colaboradora.email
+            
         }
         jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '7d' }, (error, token) => {
             if (error) {
@@ -31,7 +32,7 @@ const login = async (req, res) => {
     }
 }
 
-const hashSenha = (passowrd) => bcrypt.hashSync(password, 10);
+const hashSenha = (password) => bcrypt.hashSync(password, 10);
 
 const register = async (req, res) => {
     const colaboradora = new Colaboradoras({

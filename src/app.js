@@ -10,6 +10,10 @@ const documentation = require('./routes/doc')
 const introduction = require('./routes/introduction')
 const app = express();
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(express.json())
 app.use(cors())
@@ -21,6 +25,9 @@ app.use("/localizacao", adress)
 app.use("/admin", colaboradoras)
 app.use("/doc", documentation)
 app.use("/",  introduction)
+
+
+
 
 module.exports = app;
 
