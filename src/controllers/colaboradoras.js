@@ -2,10 +2,12 @@ const jwt = require('jsonwebtoken');
 const Colaboradoras = require('../models/colaboradoras')
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
+
 const all = async (req, res) => {
     const allColaboradoras = await Colaboradoras.find();
     return res.status(200).json(allColaboradoras)
 }
+
 const login = async (req, res) => {
 
     const colaboradora = await Colaboradoras.findOne({ email: req.body.email })
