@@ -4,12 +4,18 @@ const mongoose = require('mongoose');
 // posso padronizar os erros
 
 const getAll = async (req, res) => {
+    let adress = [];
     try {
-        const adress = await Adress.find(req.query).populate('host');
-        return res.status(200).json(adress)
+        adress = await Adress.find().populate('host');
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
+    const estado =  req.query.estado || ""; 
+        let addressQuery = adress.filter(endereco => endereco.state.toLowerCase()==estado.toLowerCase())
+        if (addressQuery.length == 0) 
+        return res.status(200).json(adress)
+        else
+        return res.status(200).json(addressQuery)
 }
 
 const showById = async (req, res) => {
