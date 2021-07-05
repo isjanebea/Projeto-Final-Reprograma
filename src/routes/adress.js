@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/adress')
 const middlwares = require('../controllers/adressMiddlwares')
-const { auth } = require('../data/authJwt')
+const { auth } = require('../services/authJwt')
 /** base URL  /localizacao/ */
 router.get("/estados", controller.adressRegisted)
 

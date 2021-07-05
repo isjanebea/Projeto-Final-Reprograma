@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/host');
 const middlwares = require('../controllers/hostMiddlwares')
-const { auth } = require('../data/authJwt')
+const { auth } = require('../services/authJwt')
 /** base URL  /acolhida/ */
 
 router.route("/")
