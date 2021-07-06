@@ -1,22 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/adress')
-const middlwares = require('../controllers/adressMiddlwares')
+const middlewares = require('../middlewares/adress.middlewares')
 const { auth } = require('../services/authJwt')
 /** base URL  /localizacao/ */
 router.get("/estados", controller.adressRegisted)
 
 router
     .route("/")
-    .post(auth, middlwares.verifyAdressBody, controller.create)
+    .post(auth, middlewares.verifyAdressBody, controller.create)
     .get(controller.getAll)
 
 router
     .route("/:id")
     .get(controller.showById)
-    .put(auth, middlwares.verifyAdressBody, controller.replaceById)
-    .patch(auth, middlwares.verifyAdressBody, controller.updateById)
-    .delete(auth, middlwares.findById, controller.deleteById)
+    .put(auth, middlewares.verifyAdressBody, controller.replaceById)
+    .patch(auth, middlewares.verifyAdressBody, controller.updateById)
+    .delete(auth, middlewares.findById, controller.deleteById)
    
 
 

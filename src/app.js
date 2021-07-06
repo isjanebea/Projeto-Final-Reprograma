@@ -6,7 +6,7 @@ const database = require('./data/database')
 const host = require('./routes/host')
 const adress = require('./routes/adress')
 const colaboradoras = require('./routes/colaboradoras')
-const documentation = require('./routes/doc')
+
 const introduction = require('./routes/introduction')
 
 const app = express();

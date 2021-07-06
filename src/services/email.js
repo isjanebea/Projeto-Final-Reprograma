@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
-const view = require('../utils/view')
+const view = require('../utils/email_html')
 const recorvyEmail =  (req, res) => {
   const { email, name, code } = req.userRecorvy;
   
