@@ -10,7 +10,6 @@ const documentation = require('./routes/doc')
 const introduction = require('./routes/introduction')
 
 const app = express();
-const appVersion = express();
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
@@ -22,16 +21,18 @@ app.use(cors())
 
 database.connect();
 
-app.use("/cantinho", host)
-app.use("/localizacao", adress)
-app.use("/admin", colaboradoras)
-app.use("/doc", documentation)
-app.use("/",  introduction)
+const baseUrl = "/api/v1";
 
 
-appVersion.use("/v1", app);
+app.use(baseUrl + "/lares", host)
+app.use(baseUrl + "/enderecos", adress)
+app.use(baseUrl +"/admin", colaboradoras)
+app.use(baseUrl +"/",  introduction)
 
 
-module.exports = appVersion;
+
+
+
+module.exports = app;
 
 

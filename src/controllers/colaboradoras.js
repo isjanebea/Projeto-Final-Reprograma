@@ -2,9 +2,9 @@ const jwt = require('jsonwebtoken');
 const Colaboradoras = require('../models/colaboradoras')
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
-
+const utils = require('../utils/helper')
 const all = async (req, res) => {
-    const allColaboradoras = await Colaboradoras.find();
+    const allColaboradoras = await Colaboradoras.find({}, { password: false });
     return res.status(200).json(allColaboradoras)
 }
 
@@ -20,7 +20,7 @@ const login = async (req, res) => {
         user = {
             nome: colaboradora.nome,
             email: colaboradora.email
-            
+
         }
         jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '7d' }, (error, token) => {
             if (error) {
@@ -34,7 +34,7 @@ const login = async (req, res) => {
     }
 }
 
-const hashSenha = (password) => bcrypt.hashSync(password, 10);
+const hashPassword = (password) => bcrypt.hashSync(password, 10);
 
 const register = async (req, res) => {
     const colaboradora = new Colaboradoras({
@@ -42,7 +42,7 @@ const register = async (req, res) => {
         ...req.register.colaboradora
     })
 
-    colaboradora.password = hashSenha(req.register.colaboradora.password)
+    colaboradora.password = hashPassword(req.register.colaboradora.password)
 
     try {
         let saveColaboradora = await colaboradora.save();
@@ -55,7 +55,7 @@ const register = async (req, res) => {
 const replaceById = async (req, res) => {
 
     if (req.register.colaboradora.password) {
-        req.register.colaboradora.password = hashsenha(req.register.colaboradora.password)
+        req.register.colaboradora.password = hashPassword(req.register.colaboradora.password)
     }
 
     try {
@@ -72,7 +72,7 @@ const replaceById = async (req, res) => {
 
 const updateById = async (req, res) => {
     if (req.register.colaboradora.password) {
-        req.register.colaboradora.password = hashsenha(req.register.colaboradora.password)
+        req.register.colaboradora.password = hashPassword(req.register.colaboradora.password)
     }
     try {
         let updateColaboradora = await Colaboradoras.updateOne({ _id: req.params.id }, req.register.colaboradora);
@@ -88,11 +88,42 @@ const updateById = async (req, res) => {
     }
 }
 
+const recorvy = async (req, res, next) => {
+    try {
+        const colaboradora = await Colaboradoras.findOne({ email: req.body.email }, { name: true, email: true });
+        colaboradora.code = utils.code();
+        await colaboradora.save();
+            req.userRecorvy = {
+                name : colaboradora.name,
+                email: colaboradora.email,
+                code : colaboradora.code
+            }
+            next();
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
 
+const replacePassword = async (req, res) => {
+     try {
+         const colaboradora = await Colaboradoras.findOne({email: req.body.email })
+         if (colaboradora.code != req.body.code) {
+             return res.status(401).json({ message: "Não autorizado"});
+         }
+         colaboradora.password = hashPassword(req.body.password);
+         colaboradora.code = utils.code();
+         colaboradora.save();
+        return res.status(200).json({ message: "Senha atualizada com sucesso"})
+     } catch (error) {
+        return res.status(500).json({ message: error.message })
+     }
+}
 module.exports = {
     login,
     register,
     all,
     replaceById,
-    updateById
+    updateById,
+    recorvy,
+    replacePassword
 }

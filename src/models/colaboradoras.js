@@ -23,6 +23,9 @@ const Schema = mongoose.Schema({
     password : {
         type : String,
         required: true,
+    },
+    code : {
+        type: Number,
     }
 })
 
