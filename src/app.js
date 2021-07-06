@@ -14,7 +14,7 @@ const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 app.use(express.json())
 app.use(cors())
@@ -28,6 +28,7 @@ app.use(baseUrl + "/lares", host)
 app.use(baseUrl + "/enderecos", adress)
 app.use(baseUrl +"/admin", colaboradoras)
 app.use(baseUrl +"/",  introduction)
+app.use(baseUrl +'/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 

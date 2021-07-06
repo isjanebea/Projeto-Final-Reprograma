@@ -1,16 +1,17 @@
 #  Ponte Arco-Iris
 
 **versão:** 1.0.0
-<br>
+---
 **autora:** Beatriz Ramerindo
 <br>
-**descrição:** A aplicação tem como objetivo mapear todas as casas que acolhem LGBTQI no Rio, seja elas Governamental ou não.
+**descrição:** Essa API irá organizar os abrigos por estados, basicamente ela servirá tanto para pessoas desabrigadas a acharem esse espaço ( no aplicativo/webapp que ou farei sozinha ou com ajuda no futuro ) , tanto para empresas e voluntários acharem esses espaços para fazer doação/trabalho.   E o mesmo servirá para profissionais de assistencia social e aliades( termo para pessoas cis que ajudam) a conseguir esse primeiro apoio a pessoa.
+
 
 
 
 # Resumo - Host
 
-*base-url :::* **'acolhida/'**
+# *lares/*
 
 Metodo | Rotas | Recurso
 ------------ | -------- | -------------
@@ -33,6 +34,7 @@ Metodo | Rotas | Recurso
 KEY | ATRIBUTO | TYPE | REQUIRIDO
 ------- | ---- | ------- | ---------------------------
 _id | "string" | String | SIM > Gerado automaticamente \ não é possivel modificar
+name | "string" |  SIM
 createAt | "string" | String | SIM > Gerado automaticamente \ não é possivel modificar.
 description | "string" | String | SIM 
 foundedAt | "string" | Date | SIM 
@@ -45,21 +47,31 @@ cnpj | "number" | Number | Opcional
 <br>
 <br>
 
-## GET
-
+## **GET**  " / "
 ---
-Protocolo: HTTP
-<br>
+**exemplo:** *{base-url}/api/v1/lares/'*
+---
+---
+**descrição**: Retorna todes os lares de acolhimento.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **LIVRE**
+---
 **Resposta do Servidor** 
-<br> 
-HTTP: 200 OK 
+---
+status **200** *ok*
+
+
 
 ```
 [{
     _id : "60d011354c1a556b04fd2386",
     createAt : "2021-06-21T04:10:26.398Z",
     "name": "Ponte Arco-Iris",
-    "description": "É uma API voltada para conectar profissionais de Assistância Social e Voluntários a esses espaços e ao mesmo tempo, conectar quem precisa a um espaço seguro mais proximo.",
+    "description": "Essa API irá organizar os abrigos por estados, basicamente ela servirá tanto para pessoas desabrigadas a acharem esse espaço ( no aplicativo/webapp que ou farei sozinha ou com ajuda no futuro ) , tanto para empresas e voluntários acharem esses espaços para fazer doação/trabalho.   E o mesmo servirá para profissionais de assistencia social e aliades( termo para pessoas cis que ajudam) a conseguir esse primeiro apoio a pessoa.",
     "foundedAt": "06/24/2021",
     "activityDomain": "Organização de Diretos Humanos",
     "type": "Organização não governamental",
@@ -76,16 +88,26 @@ HTTP: 200 OK
 <br>
 
 ---
-## POST
-<br>
-<br>
-Protocolo: HTTP
-<br>
-Metodo: POST
-<br>
-Requirido : Header Baerer Token
-<br>
-Body:
+## **POST**  " / "
+---
+**exemplo:** *{base-url}/api/v1/lares/'*
+---
+---
+**descrição**: Retorna todes os lares de acolhimento.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PRIVADO**
+---
+
+### REQUIRIDO
+ * ***Body**
+ * ***Baerer Token**
+---
+header.authorization [TOKEN]
+---
 
 *Obrigatório enviar todas as propriedades requiridas*
 ```
@@ -105,9 +127,9 @@ Body:
 }
 ```
 
-**Resposta do Servidor**
-<br>
- HTTP: 201 
+**Resposta do Servidor** 
+---
+status **201** *create*
 ```
 {
     mensagem : String,
@@ -154,8 +176,6 @@ Body:
 <br>
 <br>
 
-<br>
-<br>
 Protocolo: HTTP
 <br>
 Metodo: PUT
@@ -209,11 +229,15 @@ HTTP: 200 OK
 }
 ```
 
-
+<br>
+<br>
+<br>
 
 # Resumo - Adress
 
-*base-url :::* **'localizacao/'**
+## endereco/
+<br>
+<br>
 
 Metodo | Rotas | Recurso
 ------------ | -------- | -------------
@@ -254,7 +278,6 @@ host | "id" | String | sim
 
 ```
 [{ 
-    "type": "Organização não governamental", 
     "district": "Bairro",
     "city": "Cidade",
     "state": "Estado",
@@ -286,7 +309,6 @@ Body:
 
 ```
 {
-    "type": "Organização não governamental", 
     "district": "Bairro",
     "city": "Cidade",
     "state": "Estado",
@@ -361,7 +383,6 @@ Body:
 
 ```
 {
-    "type": "Organização não governamental", 
     "district": "Bairro",
     "city": "Cidade",
     "state": "Estado",
@@ -409,7 +430,7 @@ status : 200
 
 # Resumo - Colaboradoras
 
-*base-url :::* **'admin/'**
+## admin/
 
 Metodo | Rotas | Recurso
 ------------ | -------- | -------------

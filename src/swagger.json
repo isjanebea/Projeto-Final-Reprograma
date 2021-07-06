@@ -1,42 +1,86 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "title": "Blah",
-      "description": "",
-      "version": "1.0"
-    },
-    "produces": ["application/json"],
-    "paths": {
-      "/test": {
-        "post": {
-          "x-swagger-router-controller": "home",
-          "operationId": "index",
-          "tags": ["/test"],
-          "description": "[Login 123](https://www.google.com)",
-          "parameters": [{
-            "name": "test",
+  "swagger": "2.0",
+  "info": {
+    "title": "Ponte Arco Iris",
+    "description": "Essa API irá organizar os abrigos por estados, basicamente ela servirá tanto para pessoas desabrigadas a acharem esse espaço ( no aplicativo/webapp que ou farei sozinha ou com ajuda no futuro ) , tanto para empresas e voluntários acharem esses espaços para fazer doação/trabalho.   E o mesmo servirá para profissionais de assistencia social e aliades( termo para pessoas cis que ajudam) a conseguir esse primeiro apoio a pessoa.",
+    "version": "1.0"
+  },
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/lares": {
+      "post": {
+        "x-swagger-router-controller": "lares",
+        "operationId": "index",
+        "tags": [
+          "/"
+        ],
+        "description": "Insira o usuario e senha",
+        "parameters": [
+          {
+            "name": "name",
             "in": "formData",
-            "type": "array",
-            "collectionFormat": "multi",
-            "items": {
-              "type": "integer"
-             }
+            "required": true,
+            "type": "string"
           },
-        { "name": "profileId", "in": "formData", "required": true, "type": "string" },
-        { "name": "file", "in": "formData", "type": "file", "required": "true" }],
-          "responses": {}
-        }
-      },
-      "/bar": {
-         "get": {
-           "x-swagger-router-controller": "bar",
-           "operationId": "impossible",
-           "tags": ["/test"],
-           "description": "",
-           "parameters": [],
-           "responses": {}
-         }
-       }
+          {
+            "name": "description",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "foundedAt",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "activityDomain",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cnpj",
+            "in": "formData",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "cnpj",
+            "in": "formData",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "type": "file",
+            "required": "true"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/bar": {
+      "get": {
+        "x-swagger-router-controller": "bar",
+        "operationId": "impossible",
+        "tags": [
+          "/test"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
     }
- }
- 
+  }
+}
