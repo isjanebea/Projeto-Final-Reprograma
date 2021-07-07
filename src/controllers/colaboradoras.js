@@ -1,8 +1,14 @@
 const jwt = require('jsonwebtoken');
-const Colaboradoras = require('../models/colaboradoras')
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
+
 const utils = require('../utils/helper')
+const Colaboradoras = require('../models/colaboradoras')
+
+
+const hashPassword = (password) => bcrypt.hashSync(password, 10);
+
+
 const all = async (req, res) => {
     const allColaboradoras = await Colaboradoras.find({}, { password: false });
     return res.status(200).json(allColaboradoras)
@@ -34,7 +40,7 @@ const login = async (req, res) => {
     }
 }
 
-const hashPassword = (password) => bcrypt.hashSync(password, 10);
+
 
 const register = async (req, res) => {
     const colaboradora = new Colaboradoras({
@@ -70,6 +76,7 @@ const replaceById = async (req, res) => {
 }
 
 
+
 const updateById = async (req, res) => {
     if (req.register.colaboradora.password) {
         req.register.colaboradora.password = hashPassword(req.register.colaboradora.password)
@@ -88,6 +95,8 @@ const updateById = async (req, res) => {
     }
 }
 
+
+
 const recorvy = async (req, res, next) => {
     try {
         const colaboradora = await Colaboradoras.findOne({ email: req.body.email }, { name: true, email: true });
@@ -103,6 +112,8 @@ const recorvy = async (req, res, next) => {
         res.status(500).json({ message: error.message })
     }
 }
+
+
 
 const replacePassword = async (req, res) => {
      try {

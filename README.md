@@ -3,11 +3,46 @@
 **versão:** 1.0.0
 ---
 **autora:** Beatriz Ramerindo
-<br>
+---
 **descrição:** Essa API irá organizar os abrigos por estados, basicamente ela servirá tanto para pessoas desabrigadas a acharem esse espaço ( no aplicativo/webapp que ou farei sozinha ou com ajuda no futuro ) , tanto para empresas e voluntários acharem esses espaços para fazer doação/trabalho.   E o mesmo servirá para profissionais de assistencia social e aliades( termo para pessoas cis que ajudam) a conseguir esse primeiro apoio a pessoa.
+---
+Como usar?
+---
+---
+*base url* 
+---
+modo desenvolvimento
+---
 
+```
+npm run dev
+```
 
+```
+http://localhost:3030/
+```
 
+---
+modo production
+---
+
+```
+http://hospedagem/
+```
+
+---
+utilizar o **Postman**  ou **Insomia** para testes
+---
+<br>
+<br>
+<br>
+
+# API Documentation
+
+### END-POITS
+
+<br>
+<br>
 
 # Resumo - Host
 
@@ -26,10 +61,10 @@ Metodo | Rotas | Recurso
 <br>
 
 ## Especificações - MODEL HOST
+
  
 <br>
 <br>
-
 
 KEY | ATRIBUTO | TYPE | REQUIRIDO
 ------- | ---- | ------- | ---------------------------
@@ -48,6 +83,7 @@ cnpj | "number" | Number | Opcional
 <br>
 
 ## **GET**  " / "
+
 ---
 **exemplo:** *{base-url}/api/v1/lares/'*
 ---
@@ -64,33 +100,88 @@ Acesso: **LIVRE**
 ---
 status **200** *ok*
 
-
-
 ```
-[{
-    _id : "60d011354c1a556b04fd2386",
-    createAt : "2021-06-21T04:10:26.398Z",
+[
+   {
+    "createdAt": "2021-07-06T21:08:53.698Z",
+    "type": "Organização não governamental",
+    "_id": "60e4cbdde5731c02d4188a0c",
     "name": "Ponte Arco-Iris",
     "description": "Essa API irá organizar os abrigos por estados, basicamente ela servirá tanto para pessoas desabrigadas a acharem esse espaço ( no aplicativo/webapp que ou farei sozinha ou com ajuda no futuro ) , tanto para empresas e voluntários acharem esses espaços para fazer doação/trabalho.   E o mesmo servirá para profissionais de assistencia social e aliades( termo para pessoas cis que ajudam) a conseguir esse primeiro apoio a pessoa.",
-    "foundedAt": "06/24/2021",
+    "foundedAt": "2021-06-24T03:00:00.000Z",
     "activityDomain": "Organização de Diretos Humanos",
-    "type": "Organização não governamental",
-    cnpj: "00000/00"
+    "cnpj": 12345678,
     "activitiesAndProjects": [
         {
             "title": "Oficinas",
             "description": "corte e costura, aula de Libras (língua brasileira de sinais), capoeira, fotografia e história da arte são algumas das oficinas já promovidas pela casa"
         }
     ],
-}]
+    "__v": 0
+  }
+]
 ```
+
 <br>
 <br>
 
----
 ## **POST**  " / "
+
 ---
 **exemplo:** *{base-url}/api/v1/lares/'*
+---
+---
+**descrição**: Registra um lar de acolhimento.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PRIVADO**
+---
+
+### REQUIRIDO
+
+ * ***Body**
+ * ***Baerer Token**
+---
+
+*Obrigatório enviar todas as propriedades requiridas*
+
+```
+{
+    "name": "Ponte Arco-Iris", 
+    "description": "Essa API irá organizar os abrigos por estados, basicamente ela servirá tanto para pessoas desabrigadas a acharem esse espaço ( no aplicativo/webapp que ou farei sozinha ou com ajuda no futuro ) , tanto para empresas e voluntários acharem esses espaços para fazer doação/trabalho.   E o mesmo servirá para profissionais de assistencia social e aliades( termo para pessoas cis que ajudam) a conseguir esse primeiro apoio a pessoa.",
+    "foundedAt": "06/24/2021",
+    "activityDomain": "Organização de Diretos Humanos",
+    "type": "Organização não governamental",
+    "cnpj": 12345678,
+    "activitiesAndProjects": [
+        {
+            "title": "Oficinas",
+            "description": "corte e costura, aula de Libras (língua brasileira de sinais), capoeira, fotografia e história da arte são algumas das oficinas já promovidas pela casa"
+        }
+    ]
+}
+```
+
+**Resposta do Servidor** 
+---
+status **201** *create*
+
+```
+{
+    message : String,
+    data : { Host }
+}
+```
+
+## PATCH
+
+## **PATCH**  " /{id} "
+
+---
+**exemplo:** *{base-url}/api/v1/lares/{id}'*
 ---
 ---
 **descrição**: Retorna todes os lares de acolhimento.
@@ -103,129 +194,110 @@ Acesso: **PRIVADO**
 ---
 
 ### REQUIRIDO
+
  * ***Body**
  * ***Baerer Token**
----
-header.authorization [TOKEN]
----
+ * ***params id**
 
-*Obrigatório enviar todas as propriedades requiridas*
+*Pode enviar uma ou mais propriedades a serem atualizadas*
+
 ```
 {
-    "name": "Ponte Arco-Iris", 
-    "description": "É uma API voltada para conectar profissionais de Assistância Social e Voluntários a esses espaços e ao mesmo tempo, conectar quem precisa a um espaço seguro mais proximo.",
-    "foundedAt": "06/24/2021",
-    "activityDomain": "Organização de Diretos Humanos",
-    "type": "Organização não governamental",
-    cnpj: 12345678
-    "activitiesAndProjects": [
-        {
-            "title": "Oficinas",
-            "description": "corte e costura, aula de Libras (língua brasileira de sinais), capoeira, fotografia e história da arte são algumas das oficinas já promovidas pela casa"
-        }
-    ],
+    "name": "Ponte Arco-Iris ORG", 
 }
 ```
 
 **Resposta do Servidor** 
 ---
-status **201** *create*
+status **200** *OK*
+
 ```
 {
-    mensagem : String,
+    message : String,
     data : { Host }
 }
 ```
-## PATCH
+<br>
+<br>
 
+## **PUT*  " /{id} "
 
-<br>
-<br>
-Protocolo: HTTP
-<br>
-Metodo: PATCH
-<br>
-Requirido : Params ID,  Header Baerer Token
-<br>
-Body:
+---
+**exemplo:** *{base-url}/api/v1/lares/{id}'*
+---
+---
+**descrição**: Retorna todes os lares de acolhimento.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PRIVADO**
+---
 
+### REQUIRIDO
+
+ * ***Body**
+ * ***Baerer Token**
+ * ***params id**
+ 
 *Pode enviar uma ou mais propriedades a serem atualizadas*
 
 ```
 {
-    "name": "Ponte Arco-Iris Atualizado", 
-    "activitiesAndProjects": [
-        {
-            "title": "Oficinas",
-            "description": "corte e costura, aula de Libras (língua brasileira de sinais), capoeira, fotografia e história da arte são algumas das oficinas já promovidas pela casa"
-        }
-    ],
-}
-```
-
-**Resposta do Servidor**
-<br>
- HTTP: 200 
-```
-{
-    mensagem : String,
-    data : { Host }
-}
-```
-## PUT
-<br>
-<br>
-
-Protocolo: HTTP
-<br>
-Metodo: PUT
-<br>
-Requirido : Params ID,  Header Baerer Token
-<br>
-Body:
-
-*Pode enviar uma ou mais propriedades a serem atualizadas*
-
-```
-{
-    "name": "Ponte Arco-Iris", 
-    "description": "É uma API voltada para conectar profissionais de Assistância Social e Voluntários a esses espaços e ao mesmo tempo, conectar quem precisa a um espaço seguro mais proximo.",
+    "name": "Ponte Arco-Iris ONG", 
+    "description": "Essa API irá organizar os abrigos por estados, basicamente ela servirá tanto para pessoas desabrigadas a acharem esse espaço ( no aplicativo/webapp que ou farei sozinha ou com ajuda no futuro ) , tanto para empresas e voluntários acharem esses espaços para fazer doação/trabalho.   E o mesmo servirá para profissionais de assistencia social e aliades( termo para pessoas cis que ajudam) a conseguir esse primeiro apoio a pessoa.",
     "foundedAt": "06/24/2021",
     "activityDomain": "Organização de Diretos Humanos",
     "type": "Organização não governamental",
-    cnpj: 12345678
+    "cnpj": 99999999,
     "activitiesAndProjects": [
         {
             "title": "Oficinas",
             "description": "corte e costura, aula de Libras (língua brasileira de sinais), capoeira, fotografia e história da arte são algumas das oficinas já promovidas pela casa"
         }
-    ],
+    ]
 }
 ```
 
-**Resposta do Servidor**
-<br>
-status 200 OK
+**Resposta do Servidor** 
+---
+status **200** *OK*
+
 ```
 {
-    mensagem : String,
+    message : String,
     data : { Host }
 }
 ```
 
-## DELETE 
-Metodo: DELETE 
-<br>
-Protocolo: HTTP
-<br>
-Requirido : Header Baerer Token
-<br>
-**Resposta do Servidor**
-<br>
-HTTP: 200 OK
+## **DELETE*  " /{id} "
+
+---
+**exemplo:** *{base-url}/api/v1/lares/{id}'*
+---
+---
+**descrição**: Retorna todes os lares de acolhimento.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PRIVADO**
+---
+
+### REQUIRIDO
+ * ***Baerer Token**
+ * ***params id**
+ 
+**Resposta do Servidor** 
+---
+status **200** *OK*
+
 ```
 {
-    mensagem : String,
+    message : String,
+    data : { Host }
 }
 ```
 
@@ -233,9 +305,9 @@ HTTP: 200 OK
 <br>
 <br>
 
-# Resumo - Adress
+# Resumo - Host
 
-## endereco/
+# *endereco/*
 <br>
 <br>
 
@@ -271,10 +343,27 @@ host | "id" | String | sim
 <br>
 <br>
 
-## GET
+## **GET**  " / "
 
 ---
-**Resposta do Servidor**
+**exemplo:** *{base-url}/api/v1/endereco/'*
+---
+---
+**descrição**: Retorna todes os lares de acolhimento.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: 
+---
+body
+---
+{ state : string } - *filtra por estado*
+---
+Acesso: **LIVRE**
+---
+**Resposta do Servidor** 
+---
+status **200** *ok*
 
 ```
 [{ 
@@ -285,22 +374,40 @@ host | "id" | String | sim
     "road": "Rua do Arco Iris",
     "number": 24,
     "cep": 22220040,
+    "createAt": "2021-07-02T06:22:16.011Z",
+    "_id": "60df3d7998c9910ffc29a25f",
     "host": "60d260377b95e043a892de80"
 }]
 ```
+
 <br>
 <br>
 
 ---
-## POST
-<br>
-<br>
-Protocolo: HTTP
-<br>
-Metodo: POST
-<br>
-Requirido : Header Baerer Token
-<br>
+
+
+## **POST**  " / "
+
+---
+**exemplo:** *{base-url}/api/v1/enderecos/'*
+---
+---
+**descrição**: Registra um lar de acolhimento.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PRIVADO**
+---
+
+### REQUIRIDO
+
+ * ***Body**
+ * ***Baerer Token**
+---
+header.authorization [TOKEN]
+---
 
 *Obrigatório enviar todas as propriedades requiridas*
 
@@ -319,11 +426,13 @@ Body:
     "host": "60d260377b95e043a892de80"
 }
 ```
+
 **Resposta do Servidor**
 
 <br>
 
 201 create
+
 ```
 {
     mensagem : String,
@@ -331,9 +440,8 @@ Body:
 }
 ```
 
-
-
 ## PATCH
+
 <br>
 <br>
 Protocolo: HTTP
@@ -353,11 +461,13 @@ Body:
     "district": "Novo Bairro",
 }
 ```
+
 **Resposta do Servidor**
 
 <br>
 
 200 OK
+
 ```
 {
     mensagem : String,
@@ -365,8 +475,8 @@ Body:
 }
 ```
 
-
 ## PUT
+
 <br>
 <br>
 Protocolo: HTTP
@@ -393,11 +503,13 @@ Body:
     "host": "60d260377b95e043a892de80"
 }
 ```
+
 **Resposta do Servidor**
 
 <br>
 
 200 OK
+
 ```
 {
     mensagem : String,
@@ -418,15 +530,12 @@ Requirido : Header Baerer Token
 <br>
 status : 200
 <br>
+
 ```
 {
     mensagem : String,
 }
 ```
-
-
-
-
 
 # Resumo - Colaboradoras
 
@@ -435,11 +544,11 @@ status : 200
 Metodo | Rotas | Recurso
 ------------ | -------- | -------------
  GET  | '/' | Retorna todes colaboradores.
- GET | '/{id}' | Retorna um colaborador(a,e)
- POST | '/' | Cria um colaborador(a,e).
- PUT | '/{id}' | Substitue toda esse Colaborador(a,e).
- PATCH | '/{id}' | Atualiza uma ou mais propriedades de um Colaborador(a,e).
- DELETE | '/{id}' | Deleta um  Colaborador(a,e).
+ GET | '/{id}' | Retorna um colaborador(a, e)
+ POST | '/' | Cria um colaborador(a, e).
+ PUT | '/{id}' | Substitue toda esse Colaborador(a, e).
+ PATCH | '/{id}' | Atualiza uma ou mais propriedades de um Colaborador(a, e).
+ DELETE | '/{id}' | Deleta um  Colaborador(a, e).
  
 <br>
 <br>
@@ -456,17 +565,16 @@ password | "string" | String | SIM
 nome | "string" | String | SIM 
 sobrenome | "string" | String | SIM 
 
-
 <br>
 <br>
 
 ## GET
+
 <br>
 metodo HTTP:
 <br>
 Requirido : Header Baerer Token
 <br>
-
 
 ---
 **Resposta do Servidor**
@@ -478,11 +586,14 @@ Requirido : Header Baerer Token
     "sobrenome": "Ramerindo dos Santos",
 }]
 ```
+
 <br>
 <br>
 
 ---
+
 ## POST
+
 <br>
 <br>
 Protocolo: HTTP
@@ -505,11 +616,13 @@ Body:
     "password": "12345Abc@"
 }
 ```
+
 **Resposta do Servidor**
 
 <br>
 
 201 create
+
 ```
 {
     mensagem : String,
@@ -517,9 +630,8 @@ Body:
 }
 ```
 
-
-
 ## PATCH
+
 <br>
 <br>
 Protocolo: HTTP
@@ -539,11 +651,13 @@ Body:
     "nome": "Jane",
 }
 ```
+
 **Resposta do Servidor**
 
 <br>
 
 200 OK
+
 ```
 {
     mensagem : String,
@@ -551,8 +665,8 @@ Body:
 }
 ```
 
-
 ## PUT
+
 <br>
 <br>
 Protocolo: HTTP
@@ -575,11 +689,13 @@ Body:
     "password": "12345Abc@"
 }
 ```
+
 **Resposta do Servidor**
 
 <br>
 
 200 OK
+
 ```
 {
     mensagem : String,
@@ -600,12 +716,12 @@ Requirido : Header Baerer Token
 <br>
 status : 200
 <br>
+
 ```
 {
     mensagem : String,
 }
 ```
-
 
 # Outras Rotas
 
@@ -615,6 +731,3 @@ Metodo | Rotas | Recurso
 ------------ | -------- | -------------
  GET  | '/doc' | Retorna a documentação em formato Markdown
  GET  | '/' | Apresentação da API
-
-
-

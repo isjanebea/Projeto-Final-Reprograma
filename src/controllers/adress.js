@@ -18,6 +18,8 @@ const getAll = async (req, res) => {
         return res.status(200).json(addressQuery)
 }
 
+
+
 const adressRegisted = async (req, res) => {
     const ordem = req.query.ordem;
     try {
@@ -29,6 +31,7 @@ const adressRegisted = async (req, res) => {
         res.status(500).json({ message: error.message})
     }
 }
+
 
 const showById = async (req, res) => {
     try {
