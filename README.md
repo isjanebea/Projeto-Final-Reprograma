@@ -48,6 +48,8 @@ utilizar o **Postman**  ou **Insomia** para testes
 
 # *lares/*
 
+**ATENCÃO, *essa rota não retorna os endereços, somente os lares***
+
 Metodo | Rotas | Recurso
 ------------ | -------- | -------------
  GET  | '/' | Retorna todas as casas de acolhimento.
@@ -120,6 +122,48 @@ status **200** *ok*
     "__v": 0
   }
 ]
+```
+## **GET**  " /{id} "
+
+---
+**exemplo:** *{base-url}/api/v1/lares/{id}'*
+---
+---
+**descrição**: Retorna uma casa de acolhimento.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: N/A
+---
+---
+Acesso: **LIVRE**
+---
+### REQUIRIDO
+
+ * ***params id**
+
+
+**Resposta do Servidor** 
+---
+status **200** *ok*
+```
+   {
+    "createdAt": "2021-07-06T21:08:53.698Z",
+    "type": "Organização não governamental",
+    "_id": "60e4cbdde5731c02d4188a0c",
+    "name": "Ponte Arco-Iris",
+    "description": "Essa API irá organizar os abrigos por estados, basicamente ela servirá tanto para pessoas desabrigadas a acharem esse espaço ( no aplicativo/webapp que ou farei sozinha ou com ajuda no futuro ) , tanto para empresas e voluntários acharem esses espaços para fazer doação/trabalho.   E o mesmo servirá para profissionais de assistencia social e aliades( termo para pessoas cis que ajudam) a conseguir esse primeiro apoio a pessoa.",
+    "foundedAt": "2021-06-24T03:00:00.000Z",
+    "activityDomain": "Organização de Diretos Humanos",
+    "cnpj": 12345678,
+    "activitiesAndProjects": [
+        {
+            "title": "Oficinas",
+            "description": "corte e costura, aula de Libras (língua brasileira de sinais), capoeira, fotografia e história da arte são algumas das oficinas já promovidas pela casa"
+        }
+    ],
+    "__v": 0
+  }
 ```
 
 <br>
@@ -305,7 +349,7 @@ status **200** *OK*
 <br>
 <br>
 
-# Resumo - Host
+# Resumo ADRESS 
 
 # *endereco/*
 <br>
@@ -313,12 +357,12 @@ status **200** *OK*
 
 Metodo | Rotas | Recurso
 ------------ | -------- | -------------
- GET  | '/' | Retorna todas as casas de acolhimento.
- GET | '/{id}' | Retorna uma casa de acolhimento
- POST | '/' | Cria uma entidade de acolhimento.
- PUT | '/{id}' | Substitue toda essa entidade.
- PATCH | '/{id}' | Atualiza uma ou mais propriedades de uma entidade.
- DELETE | '/{id}' | Deleta uma entidade de acolhimento.
+ GET  | '/' | Retorna todas as casas de acolhimento e endereços.
+ GET | '/{id}' | Retorna uma casa de acolhimento  e endereços
+ POST | '/' | Cria uma entidade de acolhimento  e endereços.
+ PUT | '/{id}' | Substitue toda essa entidade  e endereços .
+ PATCH | '/{id}' | Atualiza uma ou mais propriedades de uma entidade e endereços.
+ DELETE | '/{id}' | Deleta uma entidade de acolhimento  e endereços.
  
 <br>
 <br>
@@ -355,9 +399,9 @@ host | "id" | String | sim
 ---
 Parametros opcionais: 
 ---
-body
+query string
 ---
-{ state : string } - *filtra por estado*
+{ estado : string } - *filtra por estado - case sensitive*
 ---
 Acesso: **LIVRE**
 ---
@@ -379,7 +423,45 @@ status **200** *ok*
     "host": "60d260377b95e043a892de80"
 }]
 ```
+## **GET**  " /{id} "
 
+---
+**exemplo:** *{base-url}/api/v1/endereco/{id}'*
+---
+---
+**descrição**: Retorna uma casa de acolhimento.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: N/A
+---
+---
+Acesso: **LIVRE**
+---
+### REQUIRIDO
+
+ * ***params id**
+
+
+**Resposta do Servidor** 
+---
+status **200** *ok*
+
+
+```
+{ 
+    "district": "Bairro",
+    "city": "Cidade",
+    "state": "Estado",
+    "uf" : "RJ",
+    "road": "Rua do Arco Iris",
+    "number": 24,
+    "cep": 22220040,
+    "createAt": "2021-07-02T06:22:16.011Z",
+    "_id": "60df3d7998c9910ffc29a25f",
+    "host": "60d260377b95e043a892de80"
+}
+```
 <br>
 <br>
 
@@ -392,7 +474,7 @@ status **200** *ok*
 **exemplo:** *{base-url}/api/v1/enderecos/'*
 ---
 ---
-**descrição**: Registra um lar de acolhimento.
+**descrição**: Registra o endereco de um lar de acolhimento.
 ---
 **Protocolo:** HTTP
 ---
@@ -406,8 +488,7 @@ Acesso: **PRIVADO**
  * ***Body**
  * ***Baerer Token**
 ---
-header.authorization [TOKEN]
----
+
 
 *Obrigatório enviar todas as propriedades requiridas*
 
@@ -427,29 +508,40 @@ Body:
 }
 ```
 
-**Resposta do Servidor**
-
-<br>
-
-201 create
+**Resposta do Servidor** 
+---
+status **201** *create*
 
 ```
 {
-    mensagem : String,
+    message : String,
     data : { Adress  }
 }
 ```
 
-## PATCH
 
-<br>
-<br>
-Protocolo: HTTP
-<br>
-Metodo: PATCH
-<br>
-Requirido : Header Baerer Token
-<br>
+## **PATCH**  " /{id} "
+
+---
+**exemplo:** *{base-url}/api/v1/enderecos/{id}'*
+---
+---
+**descrição**: Atualiza uma ou mais propriedades da entidade endereço.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PRIVADO**
+---
+
+### REQUIRIDO
+
+ * ***Body**
+ * ***Baerer Token**
+ * ***params id**
+---
+
 
 *Atualiza uma ou mais propriedades*
 
@@ -462,11 +554,9 @@ Body:
 }
 ```
 
-**Resposta do Servidor**
-
-<br>
-
-200 OK
+**Resposta do Servidor** 
+---
+status **200** *ok*
 
 ```
 {
@@ -475,20 +565,29 @@ Body:
 }
 ```
 
-## PUT
+## **PUT**  " /{id} "
 
-<br>
-<br>
-Protocolo: HTTP
-<br>
-Metodo: PUT
-<br>
-Requirido : Header Baerer Token
-<br>
+---
+**exemplo:** *{base-url}/api/v1/enderecos/{id}'*
+---
+---
+**descrição**: Subescreve um endereco de um lar completamente.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PRIVADO**
+---
 
-*Obrigatório enviar todas as propriedades requiridas*
+### REQUIRIDO
 
-<br>
+ * ***Body**
+ * ***Baerer Token**
+ * ***params id**
+---
+
+
 Body:
 
 ```
@@ -504,11 +603,10 @@ Body:
 }
 ```
 
-**Resposta do Servidor**
 
-<br>
-
-200 OK
+**Resposta do Servidor** 
+---
+status **200** *ok*
 
 ```
 {
@@ -517,15 +615,26 @@ Body:
 }
 ```
 
-## DELETE 
+## **DELETE**  " /{id} "
 
-Metodo: DELETE 
-<br>
-Protocolo: HTTP
-<br>
-Requirido : Header Baerer Token
-<br>
+---
+**exemplo:** *{base-url}/api/v1/enderecos/{id}'*
+---
+---
+**descrição**: Subescreve um endereco de um lar completamente.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PRIVADO**
+---
 
+### REQUIRIDO
+
+ * ***Body**
+ * ***Baerer Token**
+ * ***params id**
 **Resposta do Servidor**
 <br>
 status : 200
@@ -537,7 +646,7 @@ status : 200
 }
 ```
 
-# Resumo - Colaboradoras
+# Resumo - Colaboradores
 
 ## admin/
 
@@ -545,8 +654,9 @@ Metodo | Rotas | Recurso
 ------------ | -------- | -------------
  GET  | '/' | Retorna todes colaboradores.
  GET | '/{id}' | Retorna um colaborador(a, e)
- POST | '/' | Cria um colaborador(a, e).
+ POST | '/register' | Cria um colaborador(a, e).
  PUT | '/{id}' | Substitue toda esse Colaborador(a, e).
+ PATCH | '/{id}' | Atualiza uma ou mais propriedades de um Colaborador(a, e).
  PATCH | '/{id}' | Atualiza uma ou mais propriedades de um Colaborador(a, e).
  DELETE | '/{id}' | Deleta um  Colaborador(a, e).
  

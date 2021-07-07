@@ -1,4 +1,6 @@
 
+const notEmail= (email) => !/.+\@.+\..+/.test(email);
+
 const Colaboradoras = require('../models/colaboradoras');
 /* adress middlwares */ module.exports = {
     async findById(req, res, next) {
@@ -9,7 +11,7 @@ const Colaboradoras = require('../models/colaboradoras');
                 return next();
             }
 
-            throw Error('Descupa não foi possivel localizar o endereço')
+            throw Error('Descupa, mas não conseguimos encontrar')
 
         } catch (error) {
             return res.status(400).json({ message: error.message })
@@ -21,9 +23,12 @@ const Colaboradoras = require('../models/colaboradoras');
             name, sobrenome, email, password
         } = req.body;
 
-        if (/.+\@.+\..+/.test(email) === false) {
+        
+        if (notEmail(email)) {
             return res.status(400).json({ message: "Formato de email invalido" })
         }
+
+        
         req.register = {
             colaboradora: {
                 name, sobrenome, email, password
@@ -36,5 +41,20 @@ const Colaboradoras = require('../models/colaboradoras');
 
         return next();
 
+    },
+    verifyEmail(req, res, next) {
+        if (notEmail(req.body.email)) {
+            return res.status(400).json({ message: "Formato de email invalido" })
+        }
+        next();
+    },
+    verifyCode(req, res, next) {
+        if (/[0-9]{5}/.test(req.body.code)==false) {
+            return res.status(400).json({ message: "Formato do codico invalido" })
+        }
+        else if (req.body.password==null) {
+            return res.status(400).json({ message: "Obrigatorio enviar a nova senha"})
+        }
+        next();
     }
 }

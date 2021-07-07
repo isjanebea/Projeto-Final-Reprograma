@@ -2,18 +2,18 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/host');
 const middlewares = require('../middlewares/host.middlewares')
-const { auth } = require('../services/authJwt')
+const { authentication } = require('../services/authentication')
 /** base URL  /acolhida/ */
 
 router.route("/")
     .get(controller.getAll)
-    .post(auth, middlewares.verifyHostBody, middlewares.verifyConflit, controller.create)
+    .post(authentication, middlewares.verifyHostBody, middlewares.verifyConflit, controller.create)
 
 router.route("/:id")
     .get(controller.showById)
-    .put(auth, middlewares.verifyHostBody, middlewares.findById, controller.replaceById)
-    .patch(auth, middlewares.verifyHostBody, middlewares.findById, controller.updateById)
-    .delete(auth, middlewares.findById, controller.deleteById)
+    .put(authentication, middlewares.verifyHostBody, middlewares.findById, controller.replaceById)
+    .patch(authentication, middlewares.verifyHostBody, middlewares.findById, controller.updateById)
+    .delete(authentication, middlewares.findById, controller.deleteById)
 
 module.exports = router;
 
