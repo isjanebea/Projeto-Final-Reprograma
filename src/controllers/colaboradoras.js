@@ -10,7 +10,7 @@ const hashPassword = (password) => bcrypt.hashSync(password, 10);
 
 
 const all = async (req, res) => {
-    const allColaboradoras = await Colaboradoras.find({}, { password: false });
+    const allColaboradoras = await Colaboradoras.find({}, { password: false, code : false });
     return res.status(200).json(allColaboradoras)
 }
 

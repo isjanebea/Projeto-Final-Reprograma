@@ -23,9 +23,21 @@ const getAll = async (req, res) => {
 const adressRegisted = async (req, res) => {
     const ordem = req.query.ordem;
     try {
-        const adress = await Adress.find({}, { state : true})
-        const adressMap = Array.from(new Set(adress.map(data => data.state))).sort((a, b) => ordem =='desc' ? b-a : a-b)
-        res.status(200).json(adressMap)
+        const adress = await Adress.find({}, { state : true, city: true })
+        let ordem;
+        const filter = (a, b) => ordem == 'desc' ? b - a : a - b;
+        const adressMap = Array.from(new Set(adress.map(data => data.state))).sort(filter)
+        const city = Array.from(new Set(adress.map(data => ({ city: data.city, state: data.state })))).sort(filter)
+        const states = {};
+        adressMap.forEach(state => states[state] = []);
+        
+        city.forEach(({ state, city }) => {
+        
+            if (states[state].includes(city) == false) {
+                states[state].push(city);
+            }
+        })
+        res.status(200).json(states)
     }
     catch (error) {
         res.status(500).json({ message: error.message})
@@ -37,11 +49,11 @@ const showById = async (req, res) => {
     try {
         const adress = await Adress.findById(req.params.id).populate('host')
         if (adress == null) {
-            throw Error('Id não encontrado!')
+            return res.status(400).json({ message: "Descupa, mas não foi possivel encontrar!"});
         }
         return res.status(200).json(adress)
     } catch (error) {
-        return res.status(400).json({ message: error.message })
+        return res.status(500).json({ message: error.message })
     }
 }
 const create = async (req, res) => {
