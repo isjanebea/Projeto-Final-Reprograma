@@ -33,6 +33,8 @@ http://hospedagem/
 ---
 utilizar o **Postman**  ou **Insomia** para testes
 ---
+[GET] /  retorna a apresentação da api
+
 <br>
 <br>
 <br>
@@ -621,7 +623,7 @@ status **200** *ok*
 **exemplo:** *{base-url}/api/v1/enderecos/{id}'*
 ---
 ---
-**descrição**: Subescreve um endereco de um lar completamente.
+**descrição**: Deleta um endereco.
 ---
 **Protocolo:** HTTP
 ---
@@ -635,11 +637,9 @@ Acesso: **PRIVADO**
  * ***Body**
  * ***Baerer Token**
  * ***params id**
-**Resposta do Servidor**
-<br>
-status : 200
-<br>
-
+**Resposta do Servidor** 
+---
+status **200** *ok*
 ```
 {
     mensagem : String,
@@ -659,6 +659,9 @@ Metodo | Rotas | Recurso
  PATCH | '/{id}' | Atualiza uma ou mais propriedades de um Colaborador(a, e).
  PATCH | '/{id}' | Atualiza uma ou mais propriedades de um Colaborador(a, e).
  DELETE | '/{id}' | Deleta um  Colaborador(a, e).
+ POST | '/login' |  Autentica um usuario 
+ POST | '/recorvy' |  Solicita alteração de senha por email 
+ PATCH | '/recorvy/password' | Gera uma nova senha ao usuario, por meio do codico enviado ao email 
  
 <br>
 <br>
@@ -789,9 +792,8 @@ Body:
 
 **Resposta do Servidor**
 
-<br>
-
-200 OK
+---
+status **200** *ok*
 
 ```
 {
@@ -800,20 +802,27 @@ Body:
 }
 ```
 
-## PUT
+## **PUT**  " /{id} "
 
-<br>
-<br>
-Protocolo: HTTP
-<br>
-Metodo: PUT
-<br>
-Requirido : Header Baerer Token
-<br>
+---
+**exemplo:** *{base-url}/api/v1/admin/{id}'*
+---
+---
+**descrição**: Subescreve um usuario colaboradore completamente.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PRIVADO**
+---
 
-*Obrigatório enviar todas as propriedades requiridas*
+### REQUIRIDO
 
-<br>
+ * ***Body**
+ * ***Baerer Token**
+ * ***params id**
+---
 Body:
 
 ```
@@ -827,10 +836,9 @@ Body:
 
 **Resposta do Servidor**
 
-<br>
-
-200 OK
-
+**Resposta do Servidor** 
+---
+status **200** *ok*
 ```
 {
     mensagem : String,
@@ -838,31 +846,154 @@ Body:
 }
 ```
 
-## DELETE 
 
-Metodo: DELETE 
-<br>
-Protocolo: HTTP
-<br>
-Requirido : Header Baerer Token
-<br>
+## **PATCH**  " /{id} "
 
-**Resposta do Servidor**
-<br>
-status : 200
-<br>
+---
+**exemplo:** *{base-url}/api/v1/admin/{id}'*
+---
+---
+**descrição**: Deleta um colaboradore.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PRIVADO**
+---
 
+### REQUIRIDO
+
+ * ***Body**
+ * ***Baerer Token**
+ * ***params id**
+**Resposta do Servidor** 
+---
+status **200** *ok*
 ```
 {
     mensagem : String,
 }
 ```
 
-# Outras Rotas
+## **POST*  " /login "
 
-*base-url:* [ "/" ]
+---
+**exemplo:** *{base-url}/api/v1/admin/login'*
+---
+---
+**descrição**: Auntentica o usuario.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PUBLICO**
+---
 
-Metodo | Rotas | Recurso
------------- | -------- | -------------
- GET  | '/doc' | Retorna a documentação em formato Markdown
- GET  | '/' | Apresentação da API
+
+---
+Body:
+
+```
+{
+    "email": "colaboradora2@gmail.com", 
+    "password" : "password"
+}
+```
+
+**Resposta do Servidor**
+---
+status **200** *ok*
+```
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQmVhdHJpeiIsImVtYWlsIjoiamFuZXJhbWVyaW5kb0BnbWFpbC5jb20iLCJpYXQiOjE2MjU3ODY1NjAsImV4cCI6MTYyNjM5MTM2MH0.TNxJr0VsDu-nxHvhuWZf2hLSruOnwngqOddlxuxJ4qs",
+    "data": {
+        "name": "Beatriz",
+        "email": "email@gmail.com"
+    }
+}
+```
+
+
+## **POST*  " /recorvy "
+
+---
+**exemplo:** *{base-url}/api/v1/admin/recorvy'*
+---
+---
+**descrição**: Solicita a recuperacao de senha por email.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PUBLICO**
+---
+
+### REQUIRIDO
+
+ * ***Body**
+---
+Body:
+
+```
+{
+    "email": "colaboradora2@gmail.com", 
+}
+```
+
+**Resposta do Servidor**
+---
+status **200** *ok*
+```
+{
+    "message": "As intruções para recuperar a senha foram eviadas por email",
+    "response": "250 2.0.0 OK  1625786863 j3sm4085628pfe.98 - gsmtp",
+    "code": 67726
+}
+```
+## **PATCH*  " /recorvy/password "
+
+---
+**exemplo:** *{base-url}/api/v1/admin/recorvy/password'*
+---
+---
+**descrição**: Auntentica o usuario.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PUBLICO**
+---
+
+### REQUIRIDO
+
+ * ***Body**
+---
+Body:
+
+```
+{
+    "email": "colaboradora2@gmail.com", 
+}
+```
+
+**Resposta do Servidor**
+---
+status **200** *ok*
+```
+{
+    "message": "Senha atualizada com sucesso"
+}
+```
+
+
+
+
+
+
+
+
+
