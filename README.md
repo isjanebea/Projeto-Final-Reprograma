@@ -678,45 +678,62 @@ sobrenome | "string" | String | SIM
 <br>
 <br>
 
-## GET
+## **GET**  " / "
+
+---
+**exemplo:** *{base-url}/api/v1/admin'*
+---
+---
+**descrição**: Retorna todes  colaboradores.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: N/A
+---
+Acesso: **PRIVADO**
+---
+**Resposta do Servidor** 
+---
+status **200** *ok*
+
+```
+[
+    {
+        "createAt": "2021-07-07T05:17:29.006Z",
+        "_id": "60e5391f2348264ce87e2f45",
+        "name": "Beatriz",
+        "sobrenome": "Ramerindo",
+        "email": "email@example.com",
+        "__v": 0
+    }
+]
+```
 
 <br>
-metodo HTTP:
-<br>
-Requirido : Header Baerer Token
 <br>
 
 ---
-**Resposta do Servidor**
 
-```
-[{ 
-    "email": "colaboradora@gmail.com", 
-    "nome": "Beatriz",
-    "sobrenome": "Ramerindo dos Santos",
-}]
-```
-
-<br>
-<br>
+## **POST**  " / "
 
 ---
+**exemplo:** *{base-url}/api/v1/admin/'*
+---
+---
+**descrição**: Registra une colaboradore.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PRIVADO**
+---
 
-## POST
+### REQUIRIDO
 
-<br>
-<br>
-Protocolo: HTTP
-<br>
-Metodo: POST
-<br>
-Requirido : Header Baerer Token
-<br>
-
-*Obrigatório enviar todas as propriedades requiridas*
-
-<br>
-Body:
+ * ***Body**
+ * ***Baerer Token**
+---
 
 ```
 {
@@ -729,10 +746,8 @@ Body:
 
 **Resposta do Servidor**
 
-<br>
-
-201 create
-
+---
+status **201** *create*
 ```
 {
     mensagem : String,
@@ -740,18 +755,28 @@ Body:
 }
 ```
 
-## PATCH
 
-<br>
-<br>
-Protocolo: HTTP
-<br>
-Metodo: PATCH
-<br>
-Requirido : Header Baerer Token
-<br>
+## **PATCH**  " /{id} "
 
-*Atualiza uma ou mais propriedades*
+---
+**exemplo:** *{base-url}/api/v1/admin/{id}'*
+---
+---
+**descrição**: Atualiza uma ou mais propriedades da entidade endereço.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: **N/A**
+---
+Acesso: **PRIVADO**
+---
+
+### REQUIRIDO
+
+ * ***Body**
+ * ***Baerer Token**
+ * ***params id**
+---
 
 <br>
 Body:
