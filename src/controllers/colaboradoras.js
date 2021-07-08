@@ -24,7 +24,7 @@ const login = async (req, res) => {
     let user;
     if (bcrypt.compareSync(req.body.password, colaboradora.password)) {
         user = {
-            nome: colaboradora.nome,
+            name: colaboradora.name,
             email: colaboradora.email
 
         }
@@ -32,7 +32,7 @@ const login = async (req, res) => {
             if (error) {
                 res.status(500).json({ message: error.message })
             }
-            res.status(201).json({ token: token })
+            res.status(201).json({ token: token, data : user })
         })
     }
     else {
@@ -111,7 +111,7 @@ const recorvy = async (req, res, next) => {
                 email: colaboradora.email,
                 code : colaboradora.code
             }
-            next();
+            next(); // services>email.js>recorvyEmail
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
