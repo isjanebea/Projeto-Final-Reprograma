@@ -25,7 +25,7 @@ const recorvyEmail =  (req, res) => {
             res.status(500).json({ message : error.message})
         } else {
             res.status(200).json({ 
-                message : 'Senha enviado com sucesso',
+                message : 'As intruções para recuperar a senha foram eviadas por email',
                 response : info.response,
                 code,
             })
