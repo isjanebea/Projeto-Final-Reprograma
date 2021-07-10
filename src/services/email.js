@@ -28,7 +28,6 @@ const recorvyEmail =  (req, res) => {
             res.status(200).json({ 
                 message : 'As intruções para recuperar a senha foram eviadas por email',
                 response : info.response,
-                code,
             })
         }
     });
