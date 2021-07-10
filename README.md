@@ -18,18 +18,18 @@ modo desenvolvimento
 npm run dev
 ```
 
-```
-http://localhost:3030/
-```
 
+```
+http://localhost:3030/api/v1/
+
+```
+--- 
+modo produção
 ---
-modo production
----
+```
+https://ponte-arco-iris.herokuapp.com/api/v1/
 
 ```
-http://hospedagem/
-```
-
 ---
 utilizar o **Postman**  ou **Insomia** para testes
 ---
@@ -659,9 +659,7 @@ Metodo | Rotas | Recurso
  PATCH | '/{id}' | Atualiza uma ou mais propriedades de um Colaborador(a, e).
  PATCH | '/{id}' | Atualiza uma ou mais propriedades de um Colaborador(a, e).
  DELETE | '/{id}' | Deleta um  Colaborador(a, e).
- POST | '/login' |  Autentica um usuario 
- POST | '/recorvy' |  Solicita alteração de senha por email 
- PATCH | '/recorvy/password' | Gera uma nova senha ao usuario, por meio do codico enviado ao email 
+
  
 <br>
 <br>
@@ -714,6 +712,75 @@ status **200** *ok*
 
 <br>
 <br>
+
+## **GET**  " /{id} "
+
+---
+**exemplo:** *{base-url}/api/v1/admin{id}'*
+---
+---
+**descrição**: Retorna todes  colaboradores.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: N/A
+---
+Acesso: **PRIVADO**
+---
+**Resposta do Servidor** 
+---
+status **200** *ok*
+
+```
+[
+    {
+        "createAt": "2021-07-07T05:17:29.006Z",
+        "_id": "60e5391f2348264ce87e2f45",
+        "name": "Beatriz",
+        "sobrenome": "Ramerindo",
+        "email": "email@example.com",
+        "__v": 0
+    }
+]
+```
+
+<br>
+<br>
+
+## **GET**  " /seach "
+
+---
+**exemplo:** *{base-url}/api/v1/admin/seach'*
+---
+---
+**descrição**: Retorna todes  colaboradores dentro do filtro da busca.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: N/A
+---
+Acesso: **PRIVADO**
+---
+**Resposta do Servidor** 
+---
+status **200** *ok*
+
+```
+[
+    {
+        "createAt": "2021-07-07T05:17:29.006Z",
+        "_id": "60e5391f2348264ce87e2f45",
+        "name": "Beatriz",
+        "sobrenome": "Ramerindo",
+        "email": "email@example.com",
+        "__v": 0
+    }
+]
+```
+
+<br>
+<br>
+
 
 ---
 
@@ -876,10 +943,54 @@ status **200** *ok*
 }
 ```
 
-## **POST*  " /login "
+
+## outras rotas/
+
+Metodo | Rotas | Recurso
+------------ | -------- | -------------
+ GET | '/' | Mostra a apresentação da API
+ POST | '/auth' |  Autentica um usuario 
+ POST | '/recorvy' |  Solicita alteração de senha por email 
+ PATCH | '/recorvy' | Gera uma nova senha ao usuario, por meio do codico enviado ao email 
+ 
+
+## **GET**  " / "
 
 ---
-**exemplo:** *{base-url}/api/v1/admin/login'*
+**exemplo:** *{base-url}/api/v1/*
+---
+---
+**descrição**: Retorna a apresentação da API.
+---
+**Protocolo:** HTTP
+---
+Parametros opcionais: N/A
+---
+Acesso: **publico**
+---
+**Resposta do Servidor** 
+---
+status **200** *ok*
+
+```
+{
+    "message": "Bem vindes a  API Ponte Arco Iris",
+    "version": "1.0.0",
+    "description": "",
+    "author": "Beatriz",
+    "license": "MIT",
+    "base_de_dados": "Atualmente possuimos 1 colaboradoras na nossa base de dados e 0 casas de acolhimento"
+}
+```
+
+<br>
+<br>
+
+
+## **POST*  " /auth "
+
+---
+**exemplo:** * {base-url}/api/v1/auth/'*
 ---
 ---
 **descrição**: Auntentica o usuario.
@@ -919,7 +1030,7 @@ status **200** *ok*
 ## **POST*  " /recorvy "
 
 ---
-**exemplo:** *{base-url}/api/v1/admin/recorvy'*
+**exemplo:** *'{base-url}/api/v1/recorvy'*
 ---
 ---
 **descrição**: Solicita a recuperacao de senha por email.
@@ -956,7 +1067,7 @@ status **200** *ok*
 ## **PATCH*  " /recorvy/password "
 
 ---
-**exemplo:** *{base-url}/api/v1/admin/recorvy/password'*
+**exemplo:** *'{base-url}/api/v1/recorvy/'*
 ---
 ---
 **descrição**: Auntentica o usuario.
