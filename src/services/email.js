@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
-const view = require('../utils/email_html')
+const view = require('../utils/transportEmail')
+
 const recorvyEmail =  (req, res) => {
   const { email, name, code } = req.userRecorvy;
   
@@ -16,7 +17,7 @@ const recorvyEmail =  (req, res) => {
     var mailOptions = {
         from: process.env.GMAIL_USER_RECORVY,
         to: email,
-        subject: "Codico de Acesso para recuperar a senha - ponte arco iris",
+        subject: "Códico de acesso para recuperar a senha | Ponte Arco-íris",
         html: view.email(name, email, code)
     };
 

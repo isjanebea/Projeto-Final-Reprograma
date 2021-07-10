@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+
 module.exports = {
     authentication(req, res, next) {
 
@@ -12,7 +13,10 @@ module.exports = {
             
             let token =  authorization.split(" ")[1];
              jwt.verify(token, process.env.JWT_SECRET, (error, data) => {
-                req.userAuth = data;
+                req.usuarioAutenticado = data;
+                if (error) {
+                   return res.status(400).json({ message: "Não autorizado ou token invalida" });
+                }
                 return next();
             })
         } catch (error) {
