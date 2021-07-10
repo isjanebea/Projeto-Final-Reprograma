@@ -1,6 +1,6 @@
 const express =  require('express')
 const cors = require('cors')
-const database = require('./data/database')
+const database = require('./data/config')
 
 /** ROTAS */
 const host = require('./routes/host')

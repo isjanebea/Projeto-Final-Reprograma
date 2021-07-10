@@ -1,4 +1,4 @@
-
+const dictionary = require('../utils/dictionary');
 const Adress = require('../models/adress');
 /* adress middlwares */ module.exports = {
     async findById(req, res, next) {
@@ -9,10 +9,10 @@ const Adress = require('../models/adress');
                 return next();
             }
 
-            res.status(400).json({message :  "Descupa, mas não conseguimos encontrar o que foi pedido :("});
+            res.status(400).json({message :  dictionary.badRequest});
 
         } catch (error) {
-            return res.status(500).json({ message: error.message })
+            return res.status(500).json({ message: dictionary.serverError, error: error.message })
         }
     },
 
@@ -28,7 +28,7 @@ const Adress = require('../models/adress');
         }
 
         if (!req.body) {
-            return res.status(400).json({ message: "Por favor, enviar dados via Body" })
+            return res.status(400).json({ message: dictionary.notBody })
         }
 
         return next();

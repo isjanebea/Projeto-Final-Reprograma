@@ -1,6 +1,6 @@
 
 const notEmail= (email) => !/.+\@.+\..+/.test(email);
-
+const dictionary = require('../utils/dictionary');
 const Colaboradoras = require('../models/colaboradoras');
 /* adress middlwares */ module.exports = {
     async findById(req, res, next) {
@@ -11,10 +11,10 @@ const Colaboradoras = require('../models/colaboradoras');
                 return next();
             }
 
-            res.status(400).json({message :  "Descupa, mas não conseguimos encontrar o que foi pedido :("});
+            res.status(400).json({message :  dictionary.badRequest});
 
         } catch (error) {
-            return res.status(500).json({ message: error.message })
+            return res.status(500).json({ message: dictionary.serverError, error: error.message })
         }
     },
 
@@ -25,7 +25,7 @@ const Colaboradoras = require('../models/colaboradoras');
 
         
         if (notEmail(email)) {
-            return res.status(400).json({ message: "Formato de email invalido" })
+            return res.status(400).json({ message: dictionary.notEmail })
         }
 
         
@@ -36,7 +36,7 @@ const Colaboradoras = require('../models/colaboradoras');
         }
 
         if (!req.body) {
-            return res.status(400).json({ message: "Por favor, enviar dados via Body" })
+            return res.status(400).json({ message: dictionary.notBody })
         }
 
         return next();
@@ -44,16 +44,16 @@ const Colaboradoras = require('../models/colaboradoras');
     },
     verifyEmail(req, res, next) {
         if (notEmail(req.body.email)) {
-            return res.status(400).json({ message: "Formato de email invalido" })
+            return res.status(400).json({ message: dictionary.notEmail })
         }
         next();
     },
     verifyCode(req, res, next) {
         if (/[0-9]{5}/.test(req.body.code)==false) {
-            return res.status(400).json({ message: "Formato do codico invalido" })
+            return res.status(400).json({ message: dictionary.codeNaN })
         }
         else if (req.body.password==null) {
-            return res.status(400).json({ message: "Obrigatorio enviar a nova senha"})
+            return res.status(400).json({ message: dictionary.notNewPassowrd })
         }
         next();
     }

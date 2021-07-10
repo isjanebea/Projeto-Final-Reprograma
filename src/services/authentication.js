@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-
+const dictionary = require('../utils/dictionary');
 
 module.exports = {
     authentication(req, res, next) {
@@ -15,12 +15,12 @@ module.exports = {
              jwt.verify(token, process.env.JWT_SECRET, (error, data) => {
                 req.usuarioAutenticado = data;
                 if (error) {
-                   return res.status(400).json({ message: "Não autorizado ou token invalida" });
+                   return res.status(403).json({ message: dictionary.notAllowed });
                 }
                 return next();
             })
         } catch (error) {
-            return res.status(403).json({ message: "Não autorizado ou token invalida" })
+            return res.status(403).json({ message: dictionary.notAllowed })
         }
     }
 }
