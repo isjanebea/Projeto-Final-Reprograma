@@ -4,7 +4,7 @@
 ---
 **autora:** Beatriz Ramerindo
 ---
-**descrição:** Essa API irá organizar os abrigos por estados, basicamente ela servirá tanto para pessoas desabrigadas a acharem esse espaço ( no aplicativo/webapp que ou farei sozinha ou com ajuda no futuro ) , tanto para empresas e voluntários acharem esses espaços para fazer doação/trabalho.   E o mesmo servirá para profissionais de assistencia social e aliades( termo para pessoas cis que ajudam) a conseguir esse primeiro apoio a pessoa.
+**descrição:** Essa API irá indexar os abrigos por estados  e cidades, basicamente ela servirá tanto para pessoas desabrigadas a acharem esse espaço ( no aplicativo/webapp que ou farei sozinha ou com ajuda no futuro ) , tanto para empresas e voluntários acharem esses espaços para fazer doação/trabalho.   E o mesmo servirá para profissionais de assistencia social e aliades( termo para pessoas cis que ajudam) a conseguir esse primeiro apoio a pessoa.
 ---
 Como usar?
 ---
