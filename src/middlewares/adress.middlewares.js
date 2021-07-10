@@ -9,10 +9,10 @@ const Adress = require('../models/adress');
                 return next();
             }
 
-            throw Error('Descupa não foi possivel localizar o endereço')
+            res.status(400).json({message :  "Descupa, mas não conseguimos encontrar o que foi pedido :("});
 
         } catch (error) {
-            return res.status(400).json({ message: error.message })
+            return res.status(500).json({ message: error.message })
         }
     },
 
