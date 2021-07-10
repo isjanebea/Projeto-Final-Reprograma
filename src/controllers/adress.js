@@ -20,30 +20,6 @@ const getAll = async (req, res) => {
 
 
 
-const adressRegisted = async (req, res) => {
-    const ordem = req.query.ordem;
-    try {
-        const adress = await Adress.find({}, { state : true, city: true })
-        let ordem;
-        const filter = (a, b) => ordem == 'desc' ? b - a : a - b;
-        const adressMap = Array.from(new Set(adress.map(data => data.state))).sort(filter)
-        const city = Array.from(new Set(adress.map(data => ({ city: data.city, state: data.state })))).sort(filter)
-        const states = {};
-        adressMap.forEach(state => states[state] = []);
-        
-        city.forEach(({ state, city }) => {
-        
-            if (states[state].includes(city) == false) {
-                states[state].push(city);
-            }
-        })
-        res.status(200).json(states)
-    }
-    catch (error) {
-        res.status(500).json({ message: error.message})
-    }
-}
-
 
 const showById = async (req, res) => {
     try {
@@ -78,6 +54,32 @@ const deleteById = async (req, res) => {
         return res.status(200).json({ message: 'deletado com sucesso', data : deletedAdress })
     } catch (error) {
         return res.status(500).json({ message: error.message })
+    }
+}
+
+
+
+const adressRegisted = async (req, res) => {
+    const ordem = req.query.ordem;
+    try {
+        const adress = await Adress.find({}, { state : true, city: true })
+        let ordem;
+        const filter = (a, b) => ordem == 'desc' ? b - a : a - b;
+        const adressMap = Array.from(new Set(adress.map(data => data.state))).sort(filter)
+        const city = Array.from(new Set(adress.map(data => ({ city: data.city, state: data.state })))).sort(filter)
+        const states = {};
+        adressMap.forEach(state => states[state] = []);
+        
+        city.forEach(({ state, city }) => {
+        
+            if (states[state].includes(city) == false) {
+                states[state].push(city);
+            }
+        })
+        res.status(200).json(states)
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message})
     }
 }
 
